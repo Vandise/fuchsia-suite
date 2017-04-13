@@ -2,13 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Route, Router } from 'react-router';
-import FuchsiaSuite from './fuchsia-suite/index';
 import Pages from './fuchsia-suite/pages/index';
 import Store from './fuchsia-suite/store/index';
 import FuchsiaSuiteInterface from './fuchsia-suite/interface/index';
 import Server from './fuchsia-suite/util/server';
 
-import * as actions from './fuchsia-suite/actions/loadingActions';
+import * as loadingActions from './fuchsia-suite/actions/loadingActions';
 import LoadingScreen from './fuchsia-suite/loadingScreen';
 
 
@@ -19,7 +18,7 @@ const el = document.getElementById('app');
 
 const Interface = FuchsiaSuiteInterface;
 
-Interface.Store.dispatch(actions.LOADING('initial_load', true));
+Interface.Store.dispatch(loadingActions.LOADING('initial_load', true));
 
 if (Interface.Store.getState()['initial_load']) {
   if (process.env.NODE_ENV === 'development') {
@@ -31,14 +30,13 @@ setTimeout(() => {
   
   Server.getConfigSettings().then((data) => {
   
-    Interface.Store.dispatch(actions.LOADING('initial_load', false));
-  
-    console.log(data);
+    Interface.Store.dispatch(loadingActions.LOADING('initial_load', false));
+    Interface.loadConfiguration(data);
   
     const routes = (
       <Provider store={Interface.Store}>
         <Router history={Interface.history}>
-          <Route component={FuchsiaSuite}>
+          <Route component={Interface.AppHandler}>
             <Route
               name='portal'
               component={Interface.Pages.Portal}
