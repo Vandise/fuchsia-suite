@@ -7,6 +7,13 @@ export default handleActions({
       config: action.payload.config,
     };
   },
+  SET_INTERFACE: (state, action) => {
+    return {
+      ...state,
+      fuchsiaInterface: action.payload.fuchsiaInterface,
+    };
+  },
 }, {
   config: {},
+  fuchsiaInterface: {},
 });

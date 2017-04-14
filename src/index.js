@@ -19,11 +19,15 @@ const Interface = FuchsiaSuiteInterface;
 const initializeFuchsiaSuite = () => {
   Interface.initialize();
   setTimeout(() => {
-    
     Server.getConfigSettings().then((data) => {
-    
       Interface.loadConfiguration(data);
-    
+
+      const timer = setInterval(() => {
+        if (Interface.PluginManager.loadedPlugins()) {
+          clearInterval(timer);
+        }
+      }, 250);
+
       const routes = (
         <Provider store={Interface.Store}>
           <Router history={Interface.history}>
@@ -38,15 +42,14 @@ const initializeFuchsiaSuite = () => {
           </Router>
         </Provider>
       );
-      
+
       if (process.env.NODE_ENV === 'development') {
         ReactDOM.render(routes, el);
       }
-    
+
     }).catch((e) => {
       console.error(e);
     });
-  
   }, 1500);
 };
 

@@ -3,6 +3,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import FuchsiaSuite from '../index';
 import RouteGenerator from './routeGenerator';
 import ComponentManager from './componentManager';
+import PluginManager from './pluginManager';
 import Store from '../store/index';
 import * as configActions from '../actions/configActions';
 
@@ -11,16 +12,19 @@ const NOOP = () => {};
 class FuchsiaSuiteInterface {
 
   constructor() {
-    this.RootPage = NOOP;
-    this.AppHandler = NOOP;
+    this.RootPage = null;
+    this.AppHandler = null;
     this.ExternalReducers = {};
     this.history = null;
     this.Store = null;
+    this.pluginCount = 0;
+    this.receivedPlugins = 0;
     this.Handlers = {
       FuchsiaSuite,
     };
     this.RouteGenerator = new RouteGenerator(this);
     this.ComponentManager = new ComponentManager(this);
+    this.PluginManager = new PluginManager();
   }
 
   addHandler(name, handler) {
@@ -32,6 +36,8 @@ class FuchsiaSuiteInterface {
     this.setHandler(settings);
     this.setRootPage(settings);
     this.RouteGenerator.setRouteConfig(settings['routes']);
+    this.PluginManager.setPlugins(settings['plugins']);
+    this.PluginManager.loadPlugins();
   }
 
   setHandler(config) {
@@ -56,6 +62,7 @@ class FuchsiaSuiteInterface {
   initialize() {
     this.Store = Store({}, this.ExternalReducers);
     this.history = syncHistoryWithStore(hashHistory, this.Store);
+    this.Store.dispatch(configActions.SET_INTERFACE(this));
   }
 
 }
