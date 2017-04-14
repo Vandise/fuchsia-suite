@@ -10,18 +10,18 @@ export default class RouteGenerator {
 
   setRouteConfig(config) {
     if (!Array.isArray(config)) {
-      throw Error("Routes definition must be an array.");
+      throw Error('Routes definition must be an array.');
     }
     this.config = config;
   }
 
   generateRoutes() {
     return this.config.map((routeObj) => {
-      if(!routeObj.hasOwnProperty("name") 
-          || !routeObj.hasOwnProperty("path")
-          || !routeObj.hasOwnProperty("component")
+      if (!routeObj.hasOwnProperty('name')
+          || !routeObj.hasOwnProperty('path')
+          || !routeObj.hasOwnProperty('component')
       ) {
-        throw Error(`Route definition must contain a name, path, and component property`);
+        throw Error('Route definition must contain a name, path, and component property');
       }
       return (
         <Route

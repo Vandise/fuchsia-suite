@@ -1,19 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-class PortalPage extends React.Component {
+const PortalPage = ({ fuchsiaInterface }) => {
+  console.log(fuchsiaInterface.ComponentManager.pages.test1);
+  console.log(fuchsiaInterface.ComponentManager.pages.test2);
+  return (
+    <div>
+      <p>hello world</p>
+    </div>
+  );
+};
 
-  render() {
-    console.log(this.props.fuchsiaInterface.ComponentManager.pages["test1"]);
-    console.log(this.props.fuchsiaInterface.ComponentManager.pages["test2"]);
-    return (
-      <div>
-        <p>hello world</p>
-      </div>
-    );
-  }
-
-}
+PortalPage.propTypes = {
+  fuchsiaInterface: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -21,6 +22,7 @@ const mapStateToProps = (state) => {
   };
 };
 
+// eslint-disable-next-line no-unused-vars
 const mapDispatchToProps = dispatch => ({
 
 });

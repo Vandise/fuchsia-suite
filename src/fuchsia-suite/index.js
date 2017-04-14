@@ -1,22 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-class FuchsiaSuite extends React.Component {
+const FuchsiaSuite = ({ children }) => {
+  return (
+    <div id="fuchsia-suite-container">
+      { children }
+    </div>
+  );
+};
 
-  render() {
-    return (
-      <div id="fuchsia-suite-container">
-        { this.props.children }
-      </div>
-    );
-  }
+FuchsiaSuite.propTypes = {
+  children: PropTypes.object.isRequired,
+};
 
-}
-
+// eslint-disable-next-line no-unused-vars
 const mapStateToProps = state => ({
 
 });
 
+// eslint-disable-next-line no-unused-vars
 const mapDispatchToProps = dispatch => ({
 
 });

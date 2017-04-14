@@ -2,9 +2,9 @@ import { createAction } from 'redux-actions';
 
 export const SET_CONFIGURATION = createAction(
   'SET_CONFIGURATION', (config) => {
-    let state = {
+    const state = {
       type: 'SET_CONFIGURATION',
-      config
+      config,
     };
     return state;
   }
@@ -12,9 +12,9 @@ export const SET_CONFIGURATION = createAction(
 
 export const SET_INTERFACE = createAction(
   'SET_INTERFACE', (fuchsiaInterface) => {
-    let state = {
+    const state = {
       type: 'SET_INTERFACE',
-      fuchsiaInterface
+      fuchsiaInterface,
     };
     return state;
   }

@@ -7,7 +7,7 @@
     "build": "webpack --config webpack.production.config.js",
     "test": "mocha --require ignore-styles --opts spec/mocha.opts ${FILE:-spec}",
     "start": "node server.js",
-    "lint": "eslint ${FILE:-src spec} && echo '\\033[0;32mAll Good\\033[0m' || true",
+    "lint": "eslint ${FILE:-src spec} --fix && echo '\\033[0;32mAll Good\\033[0m' || true",
     "cover": "nyc --require babel-core/register -a npm test"
   },
   "nyc": {
@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "css-loader": "^0.11.0",
+    "prop-types": "^15.5.8",
     "q": "^1.5.0",
     "q-xhr": "^1.1.0",
     "react": "^15.1.0",

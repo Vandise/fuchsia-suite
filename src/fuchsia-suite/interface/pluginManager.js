@@ -14,9 +14,9 @@ export default class PluginManager {
 
   loadPlugins() {
     this.plugins.forEach((plugin) => {
-      const js = document.createElement("script");
-      js.type = "application/javascript";
-      js.async = "async";
+      const js = document.createElement('script');
+      js.type = 'application/javascript';
+      js.async = 'async';
       js.src = plugin;
       js.onload = this.loaded.bind(this);
       document.body.appendChild(js);
@@ -25,19 +25,29 @@ export default class PluginManager {
 
   loaded() {
     this.loadedCount += 1;
-  }  
+  }
 
   register(plugin) {
     this.registeredPlugins.push(plugin);
   }
 
   loadedPlugins() {
-    console.log(this.registeredPlugins.length, this.plugins.length, this.loadedCount, this.plugins.length);
     return (
       this.registeredPlugins.length === this.plugins.length
         &&
       this.loadedCount === this.plugins.length
     );
+  }
+
+  resolvePlugins() {
+    return new Promise((resolve) => {
+      const timer = setInterval(() => {
+        if (this.loadedPlugins()) {
+          resolve('resolved');
+          clearInterval(timer);
+        }
+      }, 250);
+    });
   }
 
 }

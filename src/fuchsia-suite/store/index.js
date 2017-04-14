@@ -6,7 +6,6 @@ import loadingReducer from '../reducers/loadingReducer';
 import configReducer from '../reducers/configReducer';
 
 export default (initialState = {}, externalReducers = {}) => {
-
   const reducers = combineReducers({
     loadingReducer,
     configReducer,
@@ -20,5 +19,5 @@ export default (initialState = {}, externalReducers = {}) => {
 
   store.subscribe(() => { });
 
-  return store;  
+  return store;
 };

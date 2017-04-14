@@ -6,8 +6,8 @@ export default handleActions({
       ...state,
       loading: {
         ...state.loading,
-        ...action.payload.loading
-      }
+        ...action.payload.loading,
+      },
     };
   },
 }, {
