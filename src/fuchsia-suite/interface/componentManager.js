@@ -1,4 +1,5 @@
 import Pages from '../pages/index';
+import Components from '../components/index';
 
 export default class ComponentManager {
 
@@ -6,7 +7,9 @@ export default class ComponentManager {
     this.pages = {
       ...Pages,
     };
-    this.components = {};
+    this.components = {
+      ...Components,
+    };
     this.FuchsiaInterface = FuchsiaInterface;
   }
 

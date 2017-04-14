@@ -2,11 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+const SIDEBAR_KEY = 'SideBar';
+
 const PortalPage = ({ fuchsiaInterface }) => {
   console.log(fuchsiaInterface.ComponentManager.pages.test1);
   console.log(fuchsiaInterface.ComponentManager.pages.test2);
+  const SideBar = fuchsiaInterface.ComponentManager.getComponent(SIDEBAR_KEY);
   return (
     <div>
+      <SideBar />
       <p>hello world</p>
     </div>
   );
