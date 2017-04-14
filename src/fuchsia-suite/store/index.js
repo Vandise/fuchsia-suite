@@ -5,16 +5,20 @@ import { routerReducer } from 'react-router-redux';
 import loadingReducer from '../reducers/loadingReducer';
 import configReducer from '../reducers/configReducer';
 
-const reducers = combineReducers({
-  loadingReducer,
-  configReducer,
-  routing: routerReducer,
-});
+export default (initialState = {}, externalReducers = {}) => {
 
-export default (state = {}) => {
-  const store = createStore(reducers, state,
+  const reducers = combineReducers({
+    loadingReducer,
+    configReducer,
+    ...externalReducers,
+    routing: routerReducer,
+  });
+
+  const store = createStore(reducers, initialState,
     applyMiddleware(thunk, promiseMiddleware)
   );
+
   store.subscribe(() => { });
+
   return store;  
 };

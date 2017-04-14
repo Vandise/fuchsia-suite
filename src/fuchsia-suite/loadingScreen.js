@@ -1,7 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-const el = document.getElementById('app');
 
 const Screen = () => {
   return (
@@ -11,4 +8,4 @@ const Screen = () => {
   );
 };
 
-export default ReactDOM.render(<Screen />, el);
+export default Screen;

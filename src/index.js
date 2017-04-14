@@ -15,42 +15,47 @@ import LoadingScreen from './fuchsia-suite/loadingScreen';
 import Styles from './stylesheets/main.scss';
 
 const el = document.getElementById('app');
-
 const Interface = FuchsiaSuiteInterface;
+const initializeFuchsiaSuite = () => {
+  Interface.initialize();
+  setTimeout(() => {
+    
+    Server.getConfigSettings().then((data) => {
+    
+      Interface.loadConfiguration(data);
+    
+      const routes = (
+        <Provider store={Interface.Store}>
+          <Router history={Interface.history}>
+            <Route component={Interface.AppHandler}>
+              <Route
+                name='portal'
+                component={Interface.RootPage}
+                path='/'
+              />
+              { Interface.RouteGenerator.generateRoutes() }
+            </Route>
+          </Router>
+        </Provider>
+      );
+      
+      if (process.env.NODE_ENV === 'development') {
+        ReactDOM.render(routes, el);
+      }
+    
+    }).catch((e) => {
+      console.error(e);
+    });
+  
+  }, 1500);
+};
 
-Interface.Store.dispatch(loadingActions.LOADING('initial_load', true));
-
-if (Interface.Store.getState()['initial_load']) {
-  if (process.env.NODE_ENV === 'development') {
-    ReactDOM.render(LoadingScreen, el);
-  }
+if (process.env.NODE_ENV === 'development') {
+  ReactDOM.render(<LoadingScreen />, el);
+  initializeFuchsiaSuite();
 }
 
-setTimeout(() => {
-  
-  Server.getConfigSettings().then((data) => {
-  
-    Interface.Store.dispatch(loadingActions.LOADING('initial_load', false));
-    Interface.loadConfiguration(data);
-  
-    const routes = (
-      <Provider store={Interface.Store}>
-        <Router history={Interface.history}>
-          <Route component={Interface.AppHandler}>
-            <Route
-              name='portal'
-              component={Interface.Pages.Portal}
-              path='/'
-            />
-          </Route>
-        </Router>
-      </Provider>
-    );
-    
-    if (process.env.NODE_ENV === 'development') {
-      ReactDOM.render(routes, el);
-    }
-  
-  });
-
-}, 1500);
+window.FuchsiaSuite = {
+  Interface,
+  init: initializeFuchsiaSuite,
+};
