@@ -5,8 +5,11 @@ import { Route, Router } from 'react-router';
 import FuchsiaSuiteInterface from './fuchsia-suite/interface/index';
 import Server from './fuchsia-suite/util/server';
 import LoadingScreen from './fuchsia-suite/loadingScreen';
+
 // eslint-disable-next-line no-unused-vars
 import Styles from './stylesheets/main.scss';
+// eslint-disable-next-line no-unused-vars
+import Bulma from './stylesheets/bulma.scss';
 
 const el = document.getElementById('app');
 const Interface = FuchsiaSuiteInterface;
