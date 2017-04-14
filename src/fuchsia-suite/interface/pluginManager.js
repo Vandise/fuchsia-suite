@@ -3,7 +3,8 @@ export default class PluginManager {
   constructor() {
     this.plugins = [];
     this.pluginCount = 0;
-    this.receivedPlugins = [];
+    this.registeredPlugins = [];
+    this.loadedCount = 0;
   }
 
   setPlugins(plugins) {
@@ -17,18 +18,26 @@ export default class PluginManager {
       js.type = "application/javascript";
       js.async = "async";
       js.src = plugin;
+      js.onload = this.loaded.bind(this);
       document.body.appendChild(js);
     });
   }
 
-  notify(plugin) {
-    console.log("received plugin", plugin);
-    console.log(this.pluginCount);
-    this.receivedPlugins.push(plugin);
+  loaded() {
+    this.loadedCount += 1;
+  }  
+
+  register(plugin) {
+    this.registeredPlugins.push(plugin);
   }
 
   loadedPlugins() {
-    return this.receivedPlugins.length === this.plugins.length;
+    console.log(this.registeredPlugins.length, this.plugins.length, this.loadedCount, this.plugins.length);
+    return (
+      this.registeredPlugins.length === this.plugins.length
+        &&
+      this.loadedCount === this.plugins.length
+    );
   }
 
 }

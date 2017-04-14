@@ -18,16 +18,20 @@ const el = document.getElementById('app');
 const Interface = FuchsiaSuiteInterface;
 const initializeFuchsiaSuite = () => {
   Interface.initialize();
-  setTimeout(() => {
-    Server.getConfigSettings().then((data) => {
-      Interface.loadConfiguration(data);
 
+  Server.getConfigSettings().then((data) => {
+    Interface.loadConfiguration(data);
+
+    const plugins = new Promise((resolve, reject) => {
       const timer = setInterval(() => {
+        
         if (Interface.PluginManager.loadedPlugins()) {
+          resolve("resolved");
           clearInterval(timer);
         }
       }, 250);
-
+    });
+    plugins.then(() => {
       const routes = (
         <Provider store={Interface.Store}>
           <Router history={Interface.history}>
@@ -46,11 +50,11 @@ const initializeFuchsiaSuite = () => {
       if (process.env.NODE_ENV === 'development') {
         ReactDOM.render(routes, el);
       }
-
-    }).catch((e) => {
-      console.error(e);
     });
-  }, 1500);
+
+  }).catch((e) => {
+    console.error(e);
+  });
 };
 
 if (process.env.NODE_ENV === 'development') {

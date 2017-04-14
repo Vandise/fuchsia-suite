@@ -5,6 +5,7 @@ class PortalPage extends React.Component {
 
   render() {
     console.log(this.props.fuchsiaInterface.ComponentManager.pages["test1"]);
+    console.log(this.props.fuchsiaInterface.ComponentManager.pages["test2"]);
     return (
       <div>
         <p>hello world</p>
