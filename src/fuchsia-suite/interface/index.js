@@ -2,7 +2,7 @@ import { hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import FuchsiaSuite from '../index';
 import RouteGenerator from './routeGenerator';
-import Pages from '../pages/index';
+import ComponentManager from './componentManager';
 import Store from '../store/index';
 import * as configActions from '../actions/configActions';
 
@@ -11,26 +11,16 @@ const NOOP = () => {};
 class FuchsiaSuiteInterface {
 
   constructor() {
-    this.RouteGenerator = new RouteGenerator();
-    this.Pages = Pages;
-    this.Store = null;
-    this.Handlers = {
-      FuchsiaSuite,
-    };
     this.RootPage = NOOP;
     this.AppHandler = NOOP;
     this.ExternalReducers = {};
     this.history = null;
-  }
-
-  addPage(name, component) {
-    if (this.Pages.hasOwnProperty(name)) {
-      throw Error(`Attempted to add page "${name}" when it already exists.`);
-    }
-    if (typeof component != "function") {
-      throw Error(`Parameter "component" must be a function.`);
-    }
-    // TODO: get page from state
+    this.Store = null;
+    this.Handlers = {
+      FuchsiaSuite,
+    };
+    this.RouteGenerator = new RouteGenerator(this);
+    this.ComponentManager = new ComponentManager(this);
   }
 
   addHandler(name, handler) {
@@ -55,7 +45,7 @@ class FuchsiaSuiteInterface {
     if (!config.hasOwnProperty("root_page")) {
       throw Error(`Application must provide a root page: use "Portal" for default.`);
     }
-    this.RootPage = this.Pages[config["root_page"]];
+    this.RootPage = this.ComponentManager.getPage(config["root_page"]);
   }
 
   addReducer(reducer) {

@@ -3,8 +3,9 @@ import { Route } from 'react-router';
 
 export default class RouteGenerator {
 
-  constructor() {
+  constructor(FuchsiaInterface) {
     this.config = [];
+    this.FuchsiaInterface = FuchsiaInterface;
   }
 
   setRouteConfig(config) {
@@ -25,7 +26,7 @@ export default class RouteGenerator {
       return (
         <Route
           name={routeObj.name}
-          component={routeObj.component}
+          component={this.FuchsiaInterface.ComponentManager.getPage(routeObj.component)}
           path={routeObj.path}
           key={routeObj.name}
         />
