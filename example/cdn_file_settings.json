@@ -1,0 +1,14 @@
+{
+  "app_handler": "FuchsiaSuite",
+  "root_page": "Portal",
+  "routes": [],
+  "plugins": [
+    "//cdn.vandise.com/plugins/1.js?v=1",
+    "//cdn.vandise.com/plugins/2.js?v=1"
+  ],
+  "sidebar": {
+    "general": [
+      { "label": "Vandise.com", "url": "http://vandise.com" }
+    ]
+  }
+}
