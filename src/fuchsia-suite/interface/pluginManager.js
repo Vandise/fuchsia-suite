@@ -17,7 +17,7 @@ export default class PluginManager {
       const js = document.createElement('script');
       js.type = 'application/javascript';
       js.async = 'async';
-      js.src = plugin;
+      js.src = plugin + '?v=1';
       js.onload = this.loaded.bind(this);
       document.body.appendChild(js);
     });
