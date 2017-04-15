@@ -6,8 +6,6 @@ const SIDEBAR_KEY = 'SideBar';
 const HEADER_KEY = 'Header';
 
 const PortalPage = ({ fuchsiaInterface }) => {
-  console.log(fuchsiaInterface.ComponentManager.pages.test1);
-  console.log(fuchsiaInterface.ComponentManager.pages.test2);
   const SideBar = fuchsiaInterface.ComponentManager.getComponent(SIDEBAR_KEY);
   const Header = fuchsiaInterface.ComponentManager.getComponent(HEADER_KEY);
   return (

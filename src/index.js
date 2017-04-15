@@ -13,6 +13,7 @@ import Bulma from './stylesheets/bulma.scss';
 
 const el = document.getElementById('app');
 const Interface = FuchsiaSuiteInterface;
+
 const initializeFuchsiaSuite = () => {
   ReactDOM.render(<LoadingScreen />, el);
 

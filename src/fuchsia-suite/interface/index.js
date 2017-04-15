@@ -5,6 +5,7 @@ import RouteGenerator from './routeGenerator';
 import ComponentManager from './componentManager';
 import PluginManager from './pluginManager';
 import SideBarManager from './sideBarManager';
+import HeaderManager from './headerManager';
 import Store from '../store/index';
 import * as configActions from '../actions/configActions';
 
@@ -25,6 +26,7 @@ class FuchsiaSuiteInterface {
     this.ComponentManager = new ComponentManager(this);
     this.SideBarManager = new SideBarManager(this);
     this.PluginManager = new PluginManager();
+    this.HeaderManager = new HeaderManager(this);
   }
 
   addHandler(name, handler) {
@@ -39,6 +41,7 @@ class FuchsiaSuiteInterface {
     this.PluginManager.setPlugins(settings.plugins);
     this.PluginManager.loadPlugins();
     this.SideBarManager.initialize(settings.sidebar ? settings.sidebar : []);
+    this.HeaderManager.initialize(settings.header ? settings.header : {});
   }
 
   setHandler(config) {
